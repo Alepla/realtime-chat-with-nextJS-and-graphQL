@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server with graphQL and Prisma",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alepla",
+  "license": "ISC",
+  "dependencies": {
+    "graphql-cli": "^4.1.0",
+    "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
+    "prisma": "^2.17.0",
+    "prisma-binding": "^2.3.16"
+  }
+}
