@@ -1,0 +1,27 @@
+# datamodel.graphql
+
+type User {
+  id: ID! @unique @id
+  username: String! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  conversations: [Conversation!]!
+}
+
+type Conversation {
+  id: ID! @unique @id
+  name: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  texts: [Text!]!
+  participants: [User!]!
+}
+
+type Text {
+  id: ID! @unique @id
+  text: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  author: User!
+  conversation: Conversation!
+}

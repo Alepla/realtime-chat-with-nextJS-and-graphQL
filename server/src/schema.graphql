@@ -1,25 +1,30 @@
-# src/schema.graphql
+# import User from './generated/prisma.graphql'
+# import Conversation from './generated/prisma.graphql'
+# import Text from './generated/prisma.graphql'
+# import UserSubscriptionPayload from './generated/prisma.graphql'
+# import TextSubscriptionPayload from './generated/prisma.graphql'
 
 type Query {
-  projectById(projectId: ID!): Project
-  completedTasks: [Task!]!
+  users: [User!]!
+  me: User
 }
 
 type Mutation {
-  createProject(name: String!): Project
-  createTask(title: String!, projectId: ID!): Task
-  markTaskAsCompleted(taskId: ID!): Task
+  signup(username: String!): AuthPayload!
+  createConversation(
+    name: String
+    participantIds: [ID!]!
+    text: String
+  ): Conversation!
+  sendTextMessage(conversationId: ID!, text: String!): Text!
 }
 
-type Project {
-  id: ID!
-  name: String!
-  tasks: [Task!]!
+type Subscription {
+  user: UserSubscriptionPayload
+  text: TextSubscriptionPayload
 }
 
-type Task {
-  id: ID!
-  title: String!
-  project: Project!
-  isCompleted: Boolean!
+type AuthPayload {
+  token: String
+  user: User
 }
