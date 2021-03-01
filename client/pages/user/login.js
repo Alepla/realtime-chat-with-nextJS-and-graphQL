@@ -2,6 +2,7 @@ import React from "react";
 
 import redirect from "../../lib/utils/redirect";
 import checkLogin from "../../lib/utils/checkLogin";
+import LoginForm from "../../components/user/LoginForm";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class LoginPage extends React.Component {
     return (
       <div className="flex flex-col justify-center items-center h-screen">
         <div className="w-1/3">
-          <h1>Register Form</h1>
+          <LoginForm />
         </div>
       </div>
     );
