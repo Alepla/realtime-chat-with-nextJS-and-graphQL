@@ -1,6 +1,9 @@
 import Head from "next/head";
+import React from "react";
 import styled from "@emotion/styled";
 
+import checkLogin from "../lib/utils/checkLogin";
+import redirect from "../lib/utils/redirect";
 import Footer from "../components/common/Footer";
 
 const BodyWrapper = styled("div")`
@@ -34,20 +37,32 @@ const Search = styled("div")`
   border: 1px solid #eaeaea;
 `;
 
-export default function Home() {
-  return (
-    <div className="container">
-      <Head>
-        <title>Realtime Chat</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <BodyWrapper>
-        <UserInfo></UserInfo>
-        <Search></Search>
-        <ChatsList></ChatsList>
-        <Chat></Chat>
-      </BodyWrapper>
-      <Footer />
-    </div>
-  );
+class IndexPage extends React.Component {
+  static async getInitialProps(ctx) {
+    const { me } = await checkLogin(ctx.apolloClient);
+
+    if (!me) redirect(ctx, "/user/login");
+
+    return { me };
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <Head>
+          <title>Realtime Chat</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <BodyWrapper>
+          <UserInfo></UserInfo>
+          <Search></Search>
+          <ChatsList></ChatsList>
+          <Chat></Chat>
+        </BodyWrapper>
+        <Footer />
+      </div>
+    );
+  }
 }
+
+export default IndexPage;
