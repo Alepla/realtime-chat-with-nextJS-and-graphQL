@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/user/chat": [
+    "/user/login": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/user/chat.js"
+      "static/chunks/pages/user/login.js"
     ]
   },
   "ampFirstPages": []

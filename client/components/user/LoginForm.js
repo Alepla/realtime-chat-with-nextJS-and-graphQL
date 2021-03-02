@@ -115,11 +115,12 @@ const LoginForm = ({ client }) => {
     e.preventDefault();
     if (userName !== "") {
       logUser({ variables: { username: userName } }).then((res) => {
+        //localStorage.setItem("token", res.data.signup.token);
         document.cookie = cookie.serialize("token", res.data.signup.token, {
           maxAge: 30 * 24 * 60 * 60,
         });
         setUserName("");
-        redirect({}, "/");
+        redirect({}, "/user/chat");
       });
     } else {
       alert("Please, type a username.");

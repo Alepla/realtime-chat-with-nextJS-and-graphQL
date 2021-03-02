@@ -1,14 +1,19 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
-import Router from "next/router";
 
 import Footer from "../components/common/Footer";
+import redirect from "../lib/utils/redirect";
+//import checkLogin from "../lib/utils/checkLogin";
 
 const IndexPage = () => {
   useEffect(() => {
-    if (localStorage.getItem("user")) Router.replace("/user/chat");
-    else Router.replace("/user/login");
-  });
+    //Improve this in a future
+    if (document.cookie) {
+      redirect({}, "/user/chat");
+    } else {
+      redirect({}, "/user/login");
+    }
+  }, []);
 
   return (
     <div className="container">
