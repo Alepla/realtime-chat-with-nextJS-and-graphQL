@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useMutation } from "react-apollo";
+import { gql } from "apollo-boost";
+import { withApollo } from "react-apollo";
+import cookie from "cookie";
 
 import redirect from "../../lib/utils/redirect";
 
@@ -86,8 +90,21 @@ const Button = styled("button")`
   }
 `;
 
+const LOG_USER = gql`
+  mutation signup($username: String!) {
+    signup(username: $username) {
+      token
+      user {
+        id
+        username
+      }
+    }
+  }
+`;
+
 const LoginForm = ({ client }) => {
   const [userName, setUserName] = React.useState("");
+  const [logUser] = useMutation(LOG_USER);
 
   const handleUserChange = React.useCallback(
     (e) => setUserName(e.target.value),
@@ -96,9 +113,14 @@ const LoginForm = ({ client }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userName);
     if (userName !== "") {
-      setUserName("");
+      logUser({ variables: { username: userName } }).then((res) => {
+        document.cookie = cookie.serialize("token", res.data.signup.token, {
+          maxAge: 30 * 24 * 60 * 60,
+        });
+        setUserName("");
+        redirect({}, "/");
+      });
     } else {
       alert("Please, type a username.");
     }
@@ -116,7 +138,7 @@ const LoginForm = ({ client }) => {
               value={userName}
               onChange={handleUserChange}
             />
-            <Bar></Bar>
+            <Bar />
             <Button>Go</Button>
           </form>
         </Card>
@@ -125,4 +147,4 @@ const LoginForm = ({ client }) => {
   );
 };
 
-export default LoginForm;
+export default withApollo(LoginForm);

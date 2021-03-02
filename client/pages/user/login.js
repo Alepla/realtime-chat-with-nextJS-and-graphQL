@@ -12,7 +12,7 @@ class LoginPage extends React.Component {
   static async getInitialProps(ctx) {
     const { me } = await checkLogin(ctx.apolloClient);
 
-    if (me) redirect(context, "/");
+    if (me) redirect(ctx, "/");
 
     return { me };
   }
