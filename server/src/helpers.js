@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const APP_SECRET = "secret98";
+const APP_SECRET = "appsecret123";
 
 const isLoggedIn = (resolve, parent, args, context, info) => {
   let Authorization;
